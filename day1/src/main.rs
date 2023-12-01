@@ -21,11 +21,7 @@ fn main() {
         for line in calibration_values {
             let mut line_codes: Vec<u8> = Vec::new();
             if let Ok(calibration_value) = line  {
-                for character in calibration_value.chars() {
-                    if let Ok(calibration_number) = character.to_string().parse::<u8>() {
-                        line_codes.insert(line_codes.len(), calibration_number);
-                    }
-                }
+                line_codes = parse_line_with_words(calibration_value);
             }
             all_line_codes.insert(all_line_codes.len(), line_codes);
         }
@@ -55,8 +51,22 @@ where P: AsRef<Path>,
     Ok(io::BufReader::new(file).lines())
 }
 
-fn parse_line(line: String) -> Vec<u8> {
+fn parse_line_with_words(line: String) -> Vec<u8> {
     let mut line_codes: Vec<u8> = Vec::new();
 
+    for (index, character) in line.chars().enumerate() {
+        if let Ok(calibration_number) = character.to_string().parse::<u8>() {
+            line_codes.insert(line_codes.len(), calibration_number);
+        } else {
+            // go through the rest of the string until there's a match found in the map
+            let remaining_string = line[index..line.len() ].to_string();
+            for (inner_index, inner_character) in remaining_string.chars().enumerate() {
+                let sub = remaining_string[0..inner_index+1].to_string();
+                if let Some(str) = WORD_NUMBER_MAP.get(&sub) {
+                    line_codes.insert(line_codes.len(), *str);
+                }
+            }
+        }
+    }
     return line_codes;
 }
