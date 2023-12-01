@@ -60,7 +60,7 @@ fn parse_line_with_words(line: String) -> Vec<u8> {
         } else {
             // go through the rest of the string until there's a match found in the map
             let remaining_string = line[index..line.len() ].to_string();
-            for (inner_index, inner_character) in remaining_string.chars().enumerate() {
+            for (inner_index, _) in remaining_string.chars().enumerate() {
                 let sub = remaining_string[0..inner_index+1].to_string();
                 if let Some(str) = WORD_NUMBER_MAP.get(&sub) {
                     line_codes.insert(line_codes.len(), *str);
