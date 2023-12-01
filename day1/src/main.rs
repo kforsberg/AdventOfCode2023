@@ -64,6 +64,7 @@ fn parse_line_with_words(line: String) -> Vec<u8> {
                 let sub = remaining_string[0..inner_index+1].to_string();
                 if let Some(str) = WORD_NUMBER_MAP.get(&sub) {
                     line_codes.insert(line_codes.len(), *str);
+                    break;
                 }
             }
         }
