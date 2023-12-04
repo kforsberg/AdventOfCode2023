@@ -15,7 +15,7 @@ static MAX_BLUE: u32 = 14;
 
 fn main() {
     let mut game_results: Vec<Vec<GameResult>> = Vec::new();
-    if let Ok(game_lines) = read_lines("./inputs/input.txt") {
+    if let Ok(game_lines) = read_lines("./inputs/test.txt") {
         for game_line in game_lines {
             if let Ok(mut game) = game_line {
                 game = remove_game_id(game);
@@ -33,7 +33,7 @@ fn main() {
             }
         }
     }
-    part_one(game_results);
+    // part_one(game_results);
     part_two(game_results);
 }
 
@@ -74,6 +74,7 @@ fn part_two(game_results: Vec<Vec<GameResult>>) {
         blue.sort();
 
         total += blue.get(blue.len() - 1).unwrap() * red.get(red.len() - 1).unwrap() * green.get(green.len() - 1).unwrap();
+
     }
     println!("{}", total)
 }
