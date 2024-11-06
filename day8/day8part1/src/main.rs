@@ -11,7 +11,7 @@ struct Point {
 fn main() {
     let mut directions:Vec<char> = Vec::new();
     let mut point_map: HashMap<String, Point> = HashMap::new();
-    if let Ok(lines) = read_lines("./inputs/input.txt") {
+    if let Ok(lines) = read_lines("../inputs/input.txt") {
         for (index, line) in lines.enumerate() {
             if let Ok(line_text) = line {
                 if index == 0 {
